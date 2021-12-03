@@ -11,10 +11,9 @@ let result = await build({
   jsxFactory: 'h'
 })
 
-let {contents} = result.outputFiles[0]
 let dataurl = await new Promise(cb => {
   let reader = new FileReader()
-  let blob = new Blob([contents], {type: 'text/javascript'})
+  let blob = new Blob([result.outputFiles[0]])
   reader.readAsDataURL(blob)
   reader.onload = () => cb(reader.result)
 })
