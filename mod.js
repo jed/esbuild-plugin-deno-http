@@ -25,6 +25,11 @@ export default {
       return {path, namespace: 'deno-http'}
     })
 
+    onResolve({filter: /.*/, namespace: 'deno-http'}, ({path, importer}) => {
+      path = new URL(path, importer).href
+      return {path, namespace: 'deno-http'}
+    })
+
     onLoad({filter: /.*/, namespace: 'deno-http'}, async ({path}) => {
       let url = new URL(path)
       await Deno.emit(url, {bundle: 'module'})
